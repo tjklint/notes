@@ -48,3 +48,37 @@
 
 - **Formalizing Informal Content:**
   - Transforming informal comments (from “Unplugged Schools”) into a formal register highlights the failure of some educators to address societal issues adequately, stressing the importance of compensation over exacerbation of societal excesses.
+ 
+## Module 1, Lesson 2 – Summary Notes
+
+### Exercise 1.2.1: Genre Match-Up
+- **Descriptive Essay:** Details sensory attributes.
+- **Definition Essay:** Explains complex ideas.
+- **Research Essay:** Uses sources to support an argument.
+- **Narrative Essay:** Tells a personal story.
+- **Argumentative Essay:** Persuades on a debatable issue.
+- **Critical Essay:** Evaluates another work.
+
+### Exercise 1.2.2: Introduction, Methods, Results, Conclusion
+- **Introduction:** Opens with a vivid event (Oklahoma City bombing) highlighting media bias and misrepresentation.
+- **Methods:** Analyzed major newspapers and one TV news source.
+- **Results:** Found that post-9/11 news coverage became more detailed and less stereotypical.
+- **Conclusion:** Advocates for thematic over episodic framing to better address root causes.
+
+### Exercise 1.2.3: Title & Thesis Comparison
+- Media language often creates oppositional groups, suggesting minority assimilation over multiculturalism.
+
+### Exercise 1.2.4: Abstracts
+- **Mills & Keddie:** Critically analyze media’s role in shaping cultural perceptions.
+- **Nacos & Torres-Reyna:** Show that news became less stereotypical post-9/11.
+
+### Exercise 1.2.5: Using the Evidence
+- Media constructs reality; sources like Turner and Benhabib support critiques of reductionist views.
+
+### Exercise 1.2.6: Methods Identification
+- **Block Method:** Traces evolving news themes on Muslims/Arabs pre- and post-9/11.
+- **Point-by-Point Method:** Compares shifts in positive vs. negative portrayals.
+
+### Exercise 1.2.7: Paragraph Structure and Techniques
+- **Paragraph 1:** Uses news examples to show fears about unregulated Islamic schools.
+- **Paragraph 2:** Presents parent testimonies about safety concerns in mainstream schools.
