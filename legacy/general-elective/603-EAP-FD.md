@@ -82,3 +82,34 @@
 ### Exercise 1.2.7: Paragraph Structure and Techniques
 - **Paragraph 1:** Uses news examples to show fears about unregulated Islamic schools.
 - **Paragraph 2:** Presents parent testimonies about safety concerns in mainstream schools.
+
+## Module 1, Lesson 3 – Summary Notes
+
+### Exercise 1.3.1 – Pre-Reading: Assessing Context
+- **Texts Compared:**  
+  - *What If…* (Rees, June 2009): General audience, eco-footprint focus, government & policy context.  
+  - *Forget Shorter Showers* (Jensen, Jul/Aug 2009): General audience, eco-activist perspective on simple living vs. industrial impact.  
+  - *Taming Growth* (Cafaro, 2011): Academic, environmental ethics and overconsumption.
+
+### Exercise 1.3.2a – Comparing Context, Purpose & Devices
+- **Rees:**  
+  - Context: Political/economic turmoil; advocates for government guided by truth.  
+  - Devices: Allusions, authority appeals.
+- **Jensen:**  
+  - Context: Critiques simple living as ineffective; blames industry.  
+  - Devices: Empirical evidence, cause-effect arguments.
+- **Cafaro:**  
+  - Context: Calls for practical environmental ethics.  
+  - Devices: Enumeration of policies, empirical data, and authoritative references.
+
+### Exercise 1.3.2b – Contrasting Perspectives
+- **Rees:** Sees potential in reformed government policies despite a pessimistic tone.  
+- **Jensen:** Urges direct political action against industry and ineffective governance.  
+- **Cafaro:** Argues for an ethical transformation that reduces overconsumption and redefines sustainable living.
+
+### Exercise 1.3.3 – Examining Conventions & Purpose
+- **Rees & Jensen:**  
+  - Use short, provocative articles with a mix of casual and technical language aimed at engaging the average reader.
+- **Cafaro:**  
+  - Writes a longer, more detailed academic piece that remains accessible, with full citations to encourage further study.
+
