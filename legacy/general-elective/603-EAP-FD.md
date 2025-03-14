@@ -113,3 +113,46 @@
 - **Cafaro:**  
   - Writes a longer, more detailed academic piece that remains accessible, with full citations to encourage further study.
 
+## Module 1, Lesson 4 – Summary Notes
+
+### Exercise 1.4.1 – Analyzing Ads from a Feminist Perspective
+- **Power Dynamics:**  
+  - Man dominates (standing, suit symbolizing work/authority) while the woman is depicted in a bikini (emphasizing sexuality and leisure).  
+  - The ad implies that the woman's value is reduced to sexual desirability.
+- **Target Audience:**  
+  - Aimed at men, reinforcing ideas of dominance and stereotypical gender roles.
+
+### Exercise 1.4.2 – Identifying Tone in “Prosti-tots” and “The Brit Pack”
+- **Language and Tone:**  
+  - Informal, slang-heavy language creates a sardonic tone.  
+  - Sensational expressions (e.g., “partying pantyless,” “well-waxed private parts”) distance the author from the subject.
+- **Anecdotal Evidence:**  
+  - The author uses personal anecdotes (e.g., her daughter’s reaction to Lindsay Lohan) to discuss the impact on children, shifting to a more serious tone when addressing cultural consequences.
+
+### Exercise 1.4.3 – Identifying Purpose and Perspective in Deveny’s Article
+- **Purpose:**  
+  - To persuade parents to provide stronger role models to counteract the influence of hypersexualized celebrity images.
+- **Perspective:**  
+  - Written from a concerned parent’s viewpoint, acknowledging that while hypersexualization has negative effects, its problem may be overstated.
+  - Presents conflicting ideas: celebrity “bad girls” might be both harmful and inspirational.
+
+### Exercise 1.4.4 – Evaluating Deveny as a Research Source
+- **Credibility Issues:**  
+  - Deveny is a journalist without specialized training in gender studies.
+  - Uses colloquial language and lacks formal citations, relying mostly on anecdotes and non-expert testimony.
+- **Research Limitations:**  
+  - Absence of a reference list makes source verification difficult.
+
+### Exercise 1.4.5 – Evaluating Press’s Article (“Feminism and Media”)
+- **Credibility and Tone:**  
+  - Press uses formal, academic language with field-specific vocabulary.
+  - Her extensive use of both primary and secondary sources, with proper documentation, enhances credibility.
+- **Balanced Argument:**  
+  - Offers a nuanced analysis of media’s role in female marginalization and challenges simplistic views on sexual liberation.
+
+### Exercise 1.4.6 – Contrasting Sources
+- **Comparison:**  
+  - **Press’s “Feminism and Media”:**  
+    - More credible, academically robust, with thorough source documentation and balanced analysis.
+  - **Deveny’s “Girls Gone Bad”:**  
+    - Relies on anecdotal evidence, lacks formal citations, and does not engage deeply with expert perspectives.
