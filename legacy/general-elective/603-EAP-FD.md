@@ -156,3 +156,45 @@
     - More credible, academically robust, with thorough source documentation and balanced analysis.
   - **Deveny’s “Girls Gone Bad”:**  
     - Relies on anecdotal evidence, lacks formal citations, and does not engage deeply with expert perspectives.
+
+## Module 1, Lesson 5 – Summary Notes
+
+### Exercise 1.5.1 – Structural and Rhetorical Elements of the Essay
+- **Introduction:**  
+  - Leads to the thesis with a hook that grabs attention.
+- **Body Paragraphs:**  
+  - Develop the thesis with unified points supported by details.
+- **Conclusion:**  
+  - Summarizes main points without introducing new information.
+- **Topic Sentence:**  
+  - Identifies the main idea of a paragraph, linking it to the thesis.
+- **Hook:**  
+  - Opens the essay with a compelling fact, statistic, or anecdote.
+- **Supporting Details:**  
+  - Back up key points with evidence (quotes, paraphrases, data).
+- **Point-by-Point vs. Block Method:**  
+  - *Point-by-Point:* Alternates comparisons of two subjects within a paragraph.  
+  - *Block Method:* Discusses each subject fully before moving to the next point.
+
+### Exercise 1.5.2 – Using Source Material
+- **In-text Citations:**  
+  - Must include author, publication year, and page number.
+- **Proper Citation:**  
+  - Ensure all references are fully credited; avoid missing details.
+- **Consistency:**  
+  - Once a source is introduced, subsequent citations may not need repetition if context is clear.
+
+### Formative Evaluation 1 – Essay Outline Example
+- **Introduction:**  
+  - Hook: Pose a scenario (e.g., writing a research paper) and raise the question of source appropriateness.
+  - Thesis: Contrast how Jensen’s and Cafaro’s texts use conventions and devices to target different audiences.
+- **Main Body:**  
+  - **Paragraph 1:**  
+    - Compare magazine conventions (Jensen’s casual style, brief format) vs. academic journal conventions (Cafaro’s formal, detailed structure with citations).
+  - **Paragraph 2:**  
+    - Contrast purposes:  
+      - Jensen argues simple living isn’t enough; supports with cause-effect, empirical evidence, and enumeration.  
+      - Cafaro advocates for a new direction in environmental ethics with policy recommendations and ethical redefinition.
+- **Conclusion:**  
+  - Restate the thesis: Different audiences and conventions lead to distinct approaches in achieving sustainable development.
+
