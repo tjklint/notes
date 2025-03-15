@@ -16,14 +16,20 @@ const Header: React.FC = () => {
 
   return (
     <header className="header-container">
-      <a href="#home" className="logo" onClick={(e) => handleClick(e, 'home')}>
+      <a href="#" className="logo" onClick={(e) => handleClick(e, 'home')}>
         TJ KLINT
       </a>
       <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? <FaTimes size={30} className="close-icon" /> : <FaBars size={30} />}
       </div>
       <nav className={`nav ${isOpen ? 'open' : ''}`}>
-        <a href="#resume" className="nav-link" onClick={(e) => handleClick(e, 'resume')}>
+        <a
+          className="nav-link"
+          href="https://tjklint.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setIsOpen(false)}
+        >          
           <FaArrowCircleRight />
           Return to Portfolio
         </a>
