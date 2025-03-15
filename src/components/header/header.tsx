@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaHome, FaUser, FaCode, FaFileAlt, FaBars, FaTimes, FaStar, FaCodeBranch } from 'react-icons/fa';
+import { FaBars, FaTimes, FaStar, FaCodeBranch, FaArrowCircleRight } from 'react-icons/fa';
 import './header.scss';
 
 const Header: React.FC = () => {
@@ -23,21 +23,9 @@ const Header: React.FC = () => {
         {isOpen ? <FaTimes size={30} className="close-icon" /> : <FaBars size={30} />}
       </div>
       <nav className={`nav ${isOpen ? 'open' : ''}`}>
-        <a href="#home" className="nav-link" onClick={(e) => handleClick(e, 'home')}>
-          <FaHome />
-          Home
-        </a>
-        <a href="#about" className="nav-link" onClick={(e) => handleClick(e, 'about')}>
-          <FaUser />
-          About
-        </a>
-        <a href="#projects" className="nav-link" onClick={(e) => handleClick(e, 'projects')}>
-          <FaCode />
-          Projects
-        </a>
         <a href="#resume" className="nav-link" onClick={(e) => handleClick(e, 'resume')}>
-          <FaFileAlt />
-          Resume
+          <FaArrowCircleRight />
+          Return to Portfolio
         </a>
         <a
           className="button"
