@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Header from './components/header/header.tsx';
-
+import Footer from './components/footer/footer.tsx';
 interface FileEntry {
   path: string;
   content: string;
@@ -66,6 +66,7 @@ const App: React.FC = () => {
         )}
       </div>
     </div>
+    <Footer />
     </div>
   );
 };
