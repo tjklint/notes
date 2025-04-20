@@ -8,13 +8,13 @@ import NotesPage from './pages/NotesPage';
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/notes">
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
         <main style={{ flex: 1 }}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/notes" element={<NotesPage />} />
+            <Route path="/explore" element={<NotesPage />} />
           </Routes>
         </main>
         <Footer />
