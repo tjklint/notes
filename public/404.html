@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="refresh" content="0; URL=/notes/" />
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+      // Extract the full URL path after the domain
+      var redirectTo = location.pathname.replace(/^\/notes/, '') || '/';
+      window.location.replace('/notes/' + '#' + redirectTo);
+    </script>
   </head>
   <body></body>
 </html>
