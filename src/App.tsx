@@ -8,7 +8,7 @@ import NotesPage from './pages/NotesPage';
 
 const App: React.FC = () => {
   return (
-    <HashRouter basename="/notes">
+    <HashRouter>
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Header />
         <main style={{ flex: 1 }}>
