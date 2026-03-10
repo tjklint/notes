@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: 'Pompompurin Notes',
   description: 'Todo list and markdown notepad',
   manifest: '/manifest.json',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { createClient } from '@/lib/supabase/client'
 import type { Todo } from '@/types/database'
 
 const PRIORITY_LABELS = { low: 'Low', medium: 'Med', high: 'High' } as const
@@ -22,7 +23,15 @@ interface TodoItemProps {
 export default function TodoItem({ todo, onToggle, onDelete, onEdit, compact }: TodoItemProps) {
   const [swiped, setSwiped] = useState(false)
   const [bouncing, setBouncing] = useState(false)
+  const [subCount, setSubCount] = useState<number | null>(null)
   const startX = useRef(0)
+
+  useEffect(() => {
+    if (compact) return
+    const supabase = createClient()
+    supabase.from('todos').select('id', { count: 'exact', head: true }).eq('parent_id', todo.id)
+      .then(({ count }) => setSubCount(count ?? 0))
+  }, [todo.id, compact])
 
   const isCompleted = todo.completed ?? false
 
@@ -123,13 +132,18 @@ export default function TodoItem({ todo, onToggle, onDelete, onEdit, compact }: 
           </div>
         </div>
 
-        {/* Chevron to sub-todos */}
+        {/* Sub-count + chevron */}
         <Link
           href={`/todos/${todo.id}`}
-          className="flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center mt-0.5 transition-colors"
+          className="flex-shrink-0 flex items-center gap-1 mt-0.5 px-2 py-1.5 rounded-xl transition-colors"
           style={{ background: 'rgba(139, 94, 60, 0.04)' }}
           aria-label="View sub-todos"
         >
+          {!compact && subCount !== null && subCount > 0 && (
+            <span className="text-[11px] font-semibold" style={{ color: 'var(--muted)' }}>
+              {subCount}
+            </span>
+          )}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" strokeWidth={2}>
             <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
