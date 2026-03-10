@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import CodeBlock from './CodeBlock'
 
 interface NoteEditorProps {
   title: string
@@ -109,7 +110,34 @@ export default function NoteEditor({
           }}
         >
           {content ? (
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={{
+                code({ children, className }) {
+                  const isBlock = className?.startsWith('language-')
+                  if (isBlock) {
+                    return <CodeBlock className={className}>{String(children)}</CodeBlock>
+                  }
+                  return (
+                    <code
+                      className={className}
+                      style={{
+                        background: 'var(--card)',
+                        border: '1px solid var(--brown)',
+                        borderRadius: 'var(--radius-sm)',
+                        padding: '0.15em 0.4em',
+                        fontSize: '0.875em',
+                        color: 'var(--brown)',
+                      }}
+                    >
+                      {children}
+                    </code>
+                  )
+                },
+              }}
+            >
+              {content}
+            </ReactMarkdown>
           ) : (
             <p style={{ color: 'var(--muted)' }}>Nothing to preview yet.</p>
           )}

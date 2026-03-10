@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --primary:    #F5C518;
@@ -89,3 +90,19 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+
+/* Strip prose's default pre background so Shiki's own styles show cleanly */
+.prose pre:has(.shiki),
+.prose pre.shiki {
+  padding: 0;
+  background: transparent !important;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* Images inside prose */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+}
