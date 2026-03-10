@@ -11,25 +11,34 @@ export default function SubTodoList({ parentId }: { parentId: string }) {
   const [showForm, setShowForm] = useState(false)
   const [editing, setEditing] = useState<Todo | null>(null)
 
-  if (loading) return <div className="text-sm py-2" style={{ color: 'var(--muted)' }}>Loading…</div>
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-6">
+        <div className="w-5 h-5 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: 'var(--primary)', borderTopColor: 'transparent' }} />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between mb-1">
-        <h3 className="text-sm font-semibold" style={{ color: 'var(--muted)' }}>
-          Sub-tasks ({todos.length})
+      <div className="flex items-center justify-between">
+        <h3 className="text-[13px] font-semibold tracking-wide uppercase" style={{ color: 'var(--muted)' }}>
+          Sub-tasks{todos.length > 0 && ` (${todos.length})`}
         </h3>
         <button
           onClick={() => setShowForm(true)}
-          className="text-sm btn-ghost py-1 px-2"
-          style={{ fontSize: '0.8rem' }}
+          className="text-[13px] font-semibold px-3 py-1 rounded-full transition-colors"
+          style={{ color: 'var(--brown)', background: 'rgba(245, 197, 24, 0.12)' }}
         >
           + Add
         </button>
       </div>
 
       {todos.length === 0 && (
-        <p className="text-sm py-3 text-center" style={{ color: 'var(--muted)' }}>No sub-tasks yet 🍮</p>
+        <div className="text-center py-8 flex flex-col items-center gap-2">
+          <span className="text-3xl">🍮</span>
+          <p className="text-[13px]" style={{ color: 'var(--muted)' }}>No sub-tasks yet</p>
+        </div>
       )}
 
       {todos.map(todo => (
@@ -39,6 +48,7 @@ export default function SubTodoList({ parentId }: { parentId: string }) {
           onToggle={toggleComplete}
           onDelete={deleteTodo}
           onEdit={setEditing}
+          compact
         />
       ))}
 

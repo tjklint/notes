@@ -5,93 +5,131 @@
   --primary:    #F5C518;
   --primary-lt: #FFE066;
   --cream:      #FFF8E7;
-  --card:       #FFF3D4;
+  --card:       #FFFFFF;
+  --card-alt:   #FFF3D4;
   --brown:      #8B5E3C;
+  --brown-lt:   #A8784E;
   --text:       #3D2B1F;
-  --muted:      #C9A96E;
+  --muted:      #B89A6B;
   --danger:     #E07B5A;
-  --success:    #7DBF82;
-  --radius-sm:  8px;
-  --radius-md:  16px;
-  --radius-lg:  24px;
+  --success:    #6BBF7A;
+  --radius-sm:  12px;
+  --radius-md:  20px;
+  --radius-lg:  28px;
+  --shadow-sm:  0 1px 3px rgba(139, 94, 60, 0.06), 0 1px 2px rgba(139, 94, 60, 0.04);
+  --shadow-md:  0 4px 16px rgba(139, 94, 60, 0.08), 0 1px 4px rgba(139, 94, 60, 0.04);
+  --shadow-lg:  0 8px 32px rgba(139, 94, 60, 0.12), 0 2px 8px rgba(139, 94, 60, 0.06);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   background-color: var(--cream);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Nunito', sans-serif;
   min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Bottom nav clearance */
 .pb-nav {
-  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
 
+/* Card */
 .card {
   background: var(--card);
   border-radius: var(--radius-md);
-  box-shadow: 0 2px 8px rgba(139, 94, 60, 0.12);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.card:active {
+  transform: scale(0.985);
+}
+
+/* Completed todo */
 .todo-completed {
   text-decoration: line-through;
   color: var(--muted);
+  opacity: 0.7;
 }
 
-.priority-low    { background: var(--success); }
-.priority-medium { background: var(--primary); }
-.priority-high   { background: var(--danger); }
-
+/* Sheet overlay */
 .sheet-overlay {
-  background: rgba(61, 43, 31, 0.4);
-  backdrop-filter: blur(2px);
+  background: rgba(61, 43, 31, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
+/* Inputs */
 .input {
   background: var(--cream);
-  border: 1.5px solid var(--brown);
+  border: 1.5px solid transparent;
   border-radius: var(--radius-sm);
   color: var(--text);
-  padding: 0.5rem 0.75rem;
+  padding: 0.625rem 0.875rem;
   width: 100%;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.2);
+  box-shadow: 0 0 0 3px rgba(245, 197, 24, 0.15);
 }
 
+.input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* Buttons */
 .btn-primary {
   background: var(--primary);
   color: var(--text);
   border-radius: var(--radius-sm);
   font-weight: 600;
-  padding: 0.6rem 1.25rem;
-  transition: background 0.15s;
+  padding: 0.65rem 1.5rem;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-primary:hover {
   background: var(--primary-lt);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-ghost {
   color: var(--brown);
   border-radius: var(--radius-sm);
-  padding: 0.6rem 1rem;
-  transition: background 0.15s;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.15s;
 }
 
 .btn-ghost:hover {
-  background: rgba(139, 94, 60, 0.08);
+  background: rgba(139, 94, 60, 0.06);
 }
 
-::-webkit-scrollbar { width: 6px; }
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 2px; opacity: 0.5; }
 
-/* Strip prose's default pre background so Shiki's own styles show cleanly */
+/* Strip prose pre background for Shiki */
 .prose pre:has(.shiki),
 .prose pre.shiki {
   padding: 0;
@@ -100,9 +138,58 @@ body {
   overflow: hidden;
 }
 
-/* Images inside prose */
+/* Images in prose */
 .prose img {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-sm);
+}
+
+/* Smooth page transitions */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeUp 0.25s ease-out;
+}
+
+/* Bottom sheet slide up */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.sheet-enter {
+  animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* FAB menu pop */
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.8) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.pop-in {
+  animation: popIn 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Checkbox bounce */
+@keyframes checkBounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.check-bounce {
+  animation: checkBounce 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Pill tab active indicator */
+.pill-active {
+  background: var(--primary);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
 }
