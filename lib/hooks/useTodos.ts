@@ -1,13 +1,13 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import type { Todo } from '@/types/database'
 
 export function useTodos(parentId: string | null = null) {
   const [todos, setTodos] = useState<Todo[]>([])
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
+  const supabase = useRef(createClient()).current
 
   const fetchTodos = useCallback(async () => {
     const query = supabase
@@ -31,28 +31,32 @@ export function useTodos(parentId: string | null = null) {
     fetchTodos()
 
     const channel = supabase
-      .channel('todos')
+      .channel(`todos-${parentId ?? 'root'}`)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'todos' }, fetchTodos)
       .subscribe()
 
     return () => { supabase.removeChannel(channel) }
-  }, [fetchTodos, supabase])
+  }, [fetchTodos, supabase, parentId])
 
   async function createTodo(fields: Partial<Omit<Todo, 'id' | 'user_id' | 'created_at' | 'updated_at'>>) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
     await supabase.from('todos').insert({ ...fields, user_id: user.id, parent_id: parentId })
+    await fetchTodos()
   }
 
   async function updateTodo(id: string, fields: Partial<Todo>) {
     await supabase.from('todos').update({ ...fields, updated_at: new Date().toISOString() }).eq('id', id)
+    await fetchTodos()
   }
 
   async function deleteTodo(id: string) {
     await supabase.from('todos').delete().eq('id', id)
+    await fetchTodos()
   }
 
   async function toggleComplete(todo: Todo) {
+    setTodos(prev => prev.map(t => t.id === todo.id ? { ...t, completed: !t.completed } : t))
     await updateTodo(todo.id, { completed: !todo.completed })
   }
 
