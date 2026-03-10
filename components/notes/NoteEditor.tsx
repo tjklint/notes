@@ -134,6 +134,16 @@ export default function NoteEditor({
                     </code>
                   )
                 },
+                // eslint-disable-next-line @next/next/no-img-element
+                img({ src, alt }) {
+                  return (
+                    <img
+                      src={src ?? ''}
+                      alt={alt ?? ''}
+                      style={{ maxWidth: '100%', height: 'auto', borderRadius: 'var(--radius-sm)' }}
+                    />
+                  )
+                },
               }}
             >
               {content}
