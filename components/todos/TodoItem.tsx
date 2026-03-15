@@ -30,7 +30,7 @@ export default function TodoItem({ todo, onToggle, onDelete, onEdit, compact }: 
     if (compact) return
     const supabase = createClient()
     supabase.from('todos').select('id', { count: 'exact', head: true }).eq('parent_id', todo.id)
-      .then(({ count }) => setSubCount(count ?? 0))
+      .then((result: { data: { count: number | null } }) => setSubCount(result.data.count ?? 0))
   }, [todo.id, compact])
 
   const isCompleted = todo.completed ?? false

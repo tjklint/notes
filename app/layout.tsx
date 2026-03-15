@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { ToastProvider } from '@/components/layout/Toast'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -33,7 +34,9 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
       </head>
-      <body>{children}</body>
+      <body>
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   )
 }

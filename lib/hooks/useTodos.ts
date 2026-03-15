@@ -2,12 +2,14 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { useToast } from '@/components/layout/Toast'
 import type { Todo } from '@/types/database'
 
 export function useTodos(parentId: string | null = null) {
   const [todos, setTodos] = useState<Todo[]>([])
   const [loading, setLoading] = useState(true)
   const supabase = useRef(createClient()).current
+  const { toast } = useToast()
 
   const fetchTodos = useCallback(async () => {
     const query = supabase
@@ -41,23 +43,36 @@ export function useTodos(parentId: string | null = null) {
   async function createTodo(fields: Partial<Omit<Todo, 'id' | 'user_id' | 'created_at' | 'updated_at'>>) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
-    await supabase.from('todos').insert({ ...fields, user_id: user.id, parent_id: parentId })
+    const { error } = await supabase.from('todos').insert({ ...fields, user_id: user.id, parent_id: parentId })
+    if (error) { toast('Failed to create todo', 'error'); return }
+    toast('Todo created')
     await fetchTodos()
   }
 
   async function updateTodo(id: string, fields: Partial<Todo>) {
-    await supabase.from('todos').update({ ...fields, updated_at: new Date().toISOString() }).eq('id', id)
+    const { error } = await supabase.from('todos').update({ ...fields, updated_at: new Date().toISOString() }).eq('id', id)
+    if (error) { toast('Failed to update todo', 'error'); return }
+    toast('Todo updated')
     await fetchTodos()
   }
 
   async function deleteTodo(id: string) {
-    await supabase.from('todos').delete().eq('id', id)
+    const { error } = await supabase.from('todos').delete().eq('id', id)
+    if (error) { toast('Failed to delete todo', 'error'); return }
+    toast('Todo deleted')
     await fetchTodos()
   }
 
   async function toggleComplete(todo: Todo) {
     setTodos(prev => prev.map(t => t.id === todo.id ? { ...t, completed: !t.completed } : t))
-    await updateTodo(todo.id, { completed: !todo.completed })
+    const { error } = await supabase.from('todos').update({ completed: !todo.completed, updated_at: new Date().toISOString() }).eq('id', todo.id)
+    if (error) {
+      toast('Failed to update todo', 'error')
+      setTodos(prev => prev.map(t => t.id === todo.id ? { ...t, completed: todo.completed } : t))
+      return
+    }
+    toast(todo.completed ? 'Marked incomplete' : 'Completed!')
+    await fetchTodos()
   }
 
   return { todos, loading, createTodo, updateTodo, deleteTodo, toggleComplete, refresh: fetchTodos }
