@@ -6,6 +6,7 @@ import { use, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { useTodos } from '@/lib/hooks/useTodos'
+import { getCachedTodo } from '@/lib/cache'
 import TodoForm from '@/components/todos/TodoForm'
 import SubTodoList from '@/components/todos/SubTodoList'
 import type { Todo } from '@/types/database'
@@ -18,12 +19,13 @@ const PRIORITY_COLORS = {
 
 export default function TodoDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-  const [parent, setParent] = useState<Todo | null>(null)
+  const [parent, setParent] = useState<Todo | null>(() => getCachedTodo(id))
   const [editing, setEditing] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const { updateTodo, deleteTodo, toggleComplete } = useTodos()
   const router = useRouter()
 
+  // Background refresh to get latest data
   useEffect(() => {
     const supabase = createClient()
     supabase
@@ -31,7 +33,9 @@ export default function TodoDetailPage({ params }: { params: Promise<{ id: strin
       .select('*')
       .eq('id', id)
       .single()
-      .then((result: { data: Todo | null }) => setParent(result.data))
+      .then((result: { data: Todo | null }) => {
+        if (result.data) setParent(result.data)
+      })
   }, [id])
 
   if (!parent) {

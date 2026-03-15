@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useToast } from '@/components/layout/Toast'
+import { cacheTodos } from '@/lib/cache'
 import type { Todo } from '@/types/database'
 
 export function useTodos(parentId: string | null = null) {
@@ -25,7 +26,9 @@ export function useTodos(parentId: string | null = null) {
     }
 
     const { data } = await query
-    setTodos(data ?? [])
+    const items = data ?? []
+    cacheTodos(items)
+    setTodos(items)
     setLoading(false)
   }, [parentId, supabase])
 
