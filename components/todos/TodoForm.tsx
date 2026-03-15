@@ -85,6 +85,12 @@ export default function TodoForm({ initial, onSubmit, onClose }: TodoFormProps) 
             style={{ background: 'rgba(139, 94, 60, 0.03)', border: 'none' }}
           />
 
+          {/* Due date — always visible */}
+          <div>
+            <label className="text-[12px] font-semibold mb-1 block" style={{ color: 'var(--muted)' }}>Due date</label>
+            <input className="input text-[14px]" type="datetime-local" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+          </div>
+
           {/* Quick actions row */}
           <div className="flex items-center gap-2 flex-wrap">
             {/* Priority pills */}
@@ -121,11 +127,6 @@ export default function TodoForm({ initial, onSubmit, onClose }: TodoFormProps) 
           {/* Expandable extras */}
           {showMore && (
             <div className="flex flex-col gap-3 animate-in">
-              <div>
-                <label className="text-[12px] font-semibold mb-1 block" style={{ color: 'var(--muted)' }}>Due date</label>
-                <input className="input text-[14px]" type="datetime-local" value={dueDate} onChange={e => setDueDate(e.target.value)} />
-              </div>
-
               <div>
                 <label className="text-[12px] font-semibold mb-1.5 block" style={{ color: 'var(--muted)' }}>Color</label>
                 <div className="flex gap-2.5">

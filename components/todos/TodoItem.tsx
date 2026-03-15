@@ -116,10 +116,13 @@ export default function TodoItem({ todo, onToggle, onDelete, onEdit, compact }: 
               </span>
             )}
             {todo.due_date && (
-              <span className="text-[11px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(139, 94, 60, 0.06)', color: 'var(--muted)' }}>
-                {new Date(todo.due_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+              <span className="text-[11px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(224, 123, 90, 0.08)', color: 'var(--danger)' }}>
+                Due {new Date(todo.due_date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
               </span>
             )}
+            <span className="text-[11px] px-2 py-0.5 rounded-full" style={{ background: 'rgba(139, 94, 60, 0.04)', color: 'rgba(139, 94, 60, 0.4)' }}>
+              {new Date(todo.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+            </span>
             {todo.tags?.map(tag => (
               <span
                 key={tag}
