@@ -18,12 +18,34 @@ export default function TodosPage() {
   const [showForm, setShowForm] = useState(false)
   const [editing, setEditing] = useState<Todo | null>(null)
   const [filter, setFilter] = useState<'all' | 'active' | 'done'>('all')
+  const [sort, setSort] = useState<'newest' | 'oldest' | 'priority' | 'due'>('newest')
 
-  const filtered = todos.filter(t => {
-    if (filter === 'active') return !t.completed
-    if (filter === 'done') return t.completed
-    return true
-  })
+  const filtered = todos
+    .filter(t => {
+      if (filter === 'active') return !t.completed
+      if (filter === 'done') return t.completed
+      return true
+    })
+    .sort((a, b) => {
+      switch (sort) {
+        case 'oldest':
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+        case 'priority': {
+          const order = { high: 0, medium: 1, low: 2 }
+          const ap = a.priority ? order[a.priority] : 3
+          const bp = b.priority ? order[b.priority] : 3
+          return ap - bp
+        }
+        case 'due': {
+          if (!a.due_date && !b.due_date) return 0
+          if (!a.due_date) return 1
+          if (!b.due_date) return -1
+          return new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
+        }
+        default:
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      }
+    })
 
   const remaining = todos.filter(t => !t.completed).length
 
@@ -69,6 +91,31 @@ export default function TodosPage() {
                 {f}
               </button>
             ))}
+          </div>
+
+          {/* Sort */}
+          <div className="flex items-center gap-2 mt-2.5">
+            <span className="text-[11px] font-semibold tracking-wide uppercase" style={{ color: 'var(--muted)' }}>Sort</span>
+            <div className="flex gap-1">
+              {([
+                { key: 'newest', label: 'Newest' },
+                { key: 'oldest', label: 'Oldest' },
+                { key: 'priority', label: 'Priority' },
+                { key: 'due', label: 'Due date' },
+              ] as const).map(s => (
+                <button
+                  key={s.key}
+                  onClick={() => setSort(s.key)}
+                  className="px-2.5 py-1 rounded-full text-[11px] font-medium transition-all"
+                  style={{
+                    background: sort === s.key ? 'var(--text)' : 'transparent',
+                    color: sort === s.key ? 'var(--cream)' : 'var(--muted)',
+                  }}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </header>
