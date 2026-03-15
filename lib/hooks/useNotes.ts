@@ -73,7 +73,7 @@ export function useNote(id: string) {
 
   useEffect(() => {
     supabase.from('notes').select('*').eq('id', id).single().then((result: { data: Note | null }) => {
-      setNote(data)
+      setNote(result.data)
       setLoading(false)
     })
   }, [id, supabase])
