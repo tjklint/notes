@@ -26,7 +26,12 @@ export default function TodoDetailPage({ params }: { params: Promise<{ id: strin
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.from('todos').select('*').eq('id', id).single().then(({ data }) => setParent(data))
+    supabase
+      .from('todos')
+      .select('*')
+      .eq('id', id)
+      .single()
+      .then((result: { data: Todo | null }) => setParent(result.data))
   }, [id])
 
   if (!parent) {
