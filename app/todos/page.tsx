@@ -11,6 +11,22 @@ import TodoForm from '@/components/todos/TodoForm'
 import BottomNav from '@/components/layout/BottomNav'
 import type { Todo } from '@/types/database'
 
+type PriorityGroup = 'high' | 'medium' | 'low' | 'none'
+
+const GROUP_ORDER: PriorityGroup[] = ['high', 'medium', 'low', 'none']
+const GROUP_LABELS: Record<PriorityGroup, string> = {
+  high: 'High priority',
+  medium: 'Medium priority',
+  low: 'Low priority',
+  none: 'No priority',
+}
+const GROUP_DOTS: Record<PriorityGroup, string> = {
+  high: 'var(--danger, #E56B6F)',
+  medium: 'var(--primary)',
+  low: 'var(--muted)',
+  none: 'var(--muted)',
+}
+
 export default function TodosPage() {
   const { todos, loading, createTodo, updateTodo, deleteTodo, toggleComplete } = useTodos()
   const { createNote } = useNotes()
@@ -18,14 +34,27 @@ export default function TodosPage() {
   const [showForm, setShowForm] = useState(false)
   const [editing, setEditing] = useState<Todo | null>(null)
   const [filter, setFilter] = useState<'all' | 'active' | 'done'>('all')
-  const [sort, setSort] = useState<'newest' | 'oldest' | 'priority' | 'due'>('newest')
+  const [sort, setSort] = useState<'newest' | 'oldest' | 'due'>('newest')
+  const [collapsed, setCollapsed] = useState<Record<PriorityGroup, boolean>>({
+    high: false,
+    medium: false,
+    low: true,
+    none: false,
+  })
   const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
     const f = localStorage.getItem('todos:filter')
     const s = localStorage.getItem('todos:sort')
+    const c = localStorage.getItem('todos:collapsed')
     if (f === 'all' || f === 'active' || f === 'done') setFilter(f)
-    if (s === 'newest' || s === 'oldest' || s === 'priority' || s === 'due') setSort(s)
+    if (s === 'newest' || s === 'oldest' || s === 'due') setSort(s)
+    if (c) {
+      try {
+        const parsed = JSON.parse(c)
+        setCollapsed(prev => ({ ...prev, ...parsed }))
+      } catch {}
+    }
     setHydrated(true)
   }, [])
 
@@ -39,6 +68,11 @@ export default function TodosPage() {
     localStorage.setItem('todos:sort', sort)
   }, [sort, hydrated])
 
+  useEffect(() => {
+    if (!hydrated) return
+    localStorage.setItem('todos:collapsed', JSON.stringify(collapsed))
+  }, [collapsed, hydrated])
+
   const filtered = todos
     .filter(t => {
       if (filter === 'active') return !t.completed
@@ -49,12 +83,6 @@ export default function TodosPage() {
       switch (sort) {
         case 'oldest':
           return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-        case 'priority': {
-          const order = { high: 0, medium: 1, low: 2 }
-          const ap = a.priority ? order[a.priority] : 3
-          const bp = b.priority ? order[b.priority] : 3
-          return ap - bp
-        }
         case 'due': {
           if (!a.due_date && !b.due_date) return 0
           if (!a.due_date) return 1
@@ -65,6 +93,11 @@ export default function TodosPage() {
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       }
     })
+
+  const grouped: Record<PriorityGroup, Todo[]> = { high: [], medium: [], low: [], none: [] }
+  for (const t of filtered) {
+    grouped[(t.priority ?? 'none') as PriorityGroup].push(t)
+  }
 
   const remaining = todos.filter(t => !t.completed).length
 
@@ -119,7 +152,6 @@ export default function TodosPage() {
               {([
                 { key: 'newest', label: 'Newest' },
                 { key: 'oldest', label: 'Oldest' },
-                { key: 'priority', label: 'Priority' },
                 { key: 'due', label: 'Due date' },
               ] as const).map(s => (
                 <button
@@ -156,15 +188,59 @@ export default function TodosPage() {
           </div>
         )}
 
-        {filtered.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={toggleComplete}
-            onDelete={deleteTodo}
-            onEdit={setEditing}
-          />
-        ))}
+        {!loading && GROUP_ORDER.map(group => {
+          const items = grouped[group]
+          if (items.length === 0) return null
+          const isCollapsed = collapsed[group]
+          return (
+            <section key={group} className="flex flex-col gap-2">
+              <button
+                onClick={() => setCollapsed(c => ({ ...c, [group]: !c[group] }))}
+                className="flex items-center gap-2 px-1 py-1 text-left"
+                aria-expanded={!isCollapsed}
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  className="transition-transform"
+                  style={{
+                    color: 'var(--muted)',
+                    transform: isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)',
+                  }}
+                >
+                  <path d="M2 4 L6 8 L10 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full"
+                  style={{ background: GROUP_DOTS[group] }}
+                />
+                <span className="text-[11px] font-semibold tracking-wide uppercase" style={{ color: 'var(--muted)' }}>
+                  {GROUP_LABELS[group]}
+                </span>
+                <span
+                  className="text-[11px] font-semibold px-1.5 rounded-full"
+                  style={{ background: 'rgba(139, 94, 60, 0.08)', color: 'var(--muted)' }}
+                >
+                  {items.length}
+                </span>
+              </button>
+              {!isCollapsed && (
+                <div className="flex flex-col gap-2">
+                  {items.map(todo => (
+                    <TodoItem
+                      key={todo.id}
+                      todo={todo}
+                      onToggle={toggleComplete}
+                      onDelete={deleteTodo}
+                      onEdit={setEditing}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+          )
+        })}
       </main>
 
       <BottomNav onCreateTodo={() => setShowForm(true)} onCreateNote={handleCreateNote} />
