@@ -19,21 +19,25 @@ export default function TodosPage() {
   const [editing, setEditing] = useState<Todo | null>(null)
   const [filter, setFilter] = useState<'all' | 'active' | 'done'>('all')
   const [sort, setSort] = useState<'newest' | 'oldest' | 'priority' | 'due'>('newest')
+  const [hydrated, setHydrated] = useState(false)
 
   useEffect(() => {
     const f = localStorage.getItem('todos:filter')
     const s = localStorage.getItem('todos:sort')
     if (f === 'all' || f === 'active' || f === 'done') setFilter(f)
     if (s === 'newest' || s === 'oldest' || s === 'priority' || s === 'due') setSort(s)
+    setHydrated(true)
   }, [])
 
   useEffect(() => {
+    if (!hydrated) return
     localStorage.setItem('todos:filter', filter)
-  }, [filter])
+  }, [filter, hydrated])
 
   useEffect(() => {
+    if (!hydrated) return
     localStorage.setItem('todos:sort', sort)
-  }, [sort])
+  }, [sort, hydrated])
 
   const filtered = todos
     .filter(t => {
