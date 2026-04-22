@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTodos } from '@/lib/hooks/useTodos'
 import { useNotes } from '@/lib/hooks/useNotes'
@@ -19,6 +19,21 @@ export default function TodosPage() {
   const [editing, setEditing] = useState<Todo | null>(null)
   const [filter, setFilter] = useState<'all' | 'active' | 'done'>('all')
   const [sort, setSort] = useState<'newest' | 'oldest' | 'priority' | 'due'>('newest')
+
+  useEffect(() => {
+    const f = localStorage.getItem('todos:filter')
+    const s = localStorage.getItem('todos:sort')
+    if (f === 'all' || f === 'active' || f === 'done') setFilter(f)
+    if (s === 'newest' || s === 'oldest' || s === 'priority' || s === 'due') setSort(s)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('todos:filter', filter)
+  }, [filter])
+
+  useEffect(() => {
+    localStorage.setItem('todos:sort', sort)
+  }, [sort])
 
   const filtered = todos
     .filter(t => {
